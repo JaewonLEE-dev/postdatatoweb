@@ -43,3 +43,19 @@ jobs:
           docker tag potato264/postdatatoweb:latest potato264/postdatatoweb:${{ github.sha }}
           docker push potato264/postdatatoweb:latest
           docker push potato264/postdatatoweb:${{ github.sha }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2  # 변경: 사용 중인 AWS 리전
+
+
+      - name: Deploy to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: postdatatoweb-task-definition.json
+          service: postdatatoweb
+          cluster: postdatatoweb
+          wait-for-service-stability: true
