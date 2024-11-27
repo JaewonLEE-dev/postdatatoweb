@@ -1,5 +1,5 @@
 # 베이스 이미지
-FROM openjdk:17-jdk-alipine
+FROM openjdk:17-jdk-alpine
 
 WORKDIR /app
 
