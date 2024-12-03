@@ -1,51 +1,36 @@
 package com.gmail.leejaewon264.postdatatoweb.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Getter;
 
+@Getter
 @Entity
-@Table(name = "user_info")
 public class UserInfo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(name = "user_name", nullable = false, length = 50)
-    private String userName;
-
-    @Column(name = "user_email", unique = true, length = 100)
-    private String userEmail;
-
-    @Column(name = "user_pw_hash", length = 255)
-    private String userPwHash;
 
     // Getters and Setters
-    public Long getUserId() {
-        return userId;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+
+    private String userName;
+
+    private String userEmail;
+
+    private String userPwHash;
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getUserEmail() {
-        return userEmail;
-    }
-
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
-    }
-
-    public String getUserPwHash() {
-        return userPwHash;
     }
 
     public void setUserPwHash(String userPwHash) {

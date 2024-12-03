@@ -1,11 +1,10 @@
 package com.gmail.leejaewon264.postdatatoweb.controller;
 
 import com.gmail.leejaewon264.postdatatoweb.entity.UserInfo;
-import com.gmail.leejaewon264.postdatatoweb.repository.UserInfoRepository;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.gmail.leejaewon264.postdatatoweb.service.UserInfoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -15,18 +14,18 @@ import java.util.List;
         "http://potatochipsmania-postdatatoweb.s3-website.ap-northeast-2.amazonaws.com",
         "https://potatochipsmania-postdatatoweb.s3-website.ap-northeast-2.amazonaws.com"// S3 정적 웹사이트
 })
-@Controller
-public class UserInfoController {
-    private final UserInfoRepository userInfoRepository;
 
-    public UserInfoController(UserInfoRepository userInfoRepository) {
-        this.userInfoRepository = userInfoRepository;
+@RestController
+public class UserInfoController {
+
+    private final UserInfoService userInfoService;
+
+    public UserInfoController(UserInfoService userInfoService) {
+        this.userInfoService = userInfoService;
     }
 
     @GetMapping("/")
-    public String getAllUsers(Model model) {
-        List<UserInfo> users = userInfoRepository.findAll();
-        model.addAttribute("users", users);
-        return "user-list";
+    public List<UserInfo> getAllUsers() {
+        return userInfoService.getAllUsers();
     }
 }
